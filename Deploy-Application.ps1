@@ -125,9 +125,9 @@ Try {
 		Show-InstallationProgress
 
 		## <Perform Pre-Installation tasks here>
-		If (Test-Path -Path "C:\Quartus\13.0sp1\quartus\bin\jtagserver.exe" -PathType 'Leaf') {
-			Stop-Service jtagserver
-			}
+		If ((Get-Service jtagserver).Status -eq 'Running') {
+        Stop-Service jtagserver
+    		}
 		If (Test-Path -Path "C:\intelFPGA_lite\17.0\uninstall\quartus_lite-17.0.0.595-windows-uninstall.exe" -PathType 'Leaf') {
 			Execute-Process -Path "C:\intelFPGA_lite\17.0\uninstall\modelsim_ase-17.0.0.595-windows-uninstall.exe" -Parameters '--mode unattended --unattendedmodeui none' -WindowStyle 'Hidden' -PassThru
 			Execute-Process -Path "C:\intelFPGA_lite\17.0\uninstall\quartus_lite-17.0.0.595-windows-uninstall.exe" -Parameters '--mode unattended --unattendedmodeui none' -WindowStyle 'Hidden' -PassThru
